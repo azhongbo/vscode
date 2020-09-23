@@ -44,21 +44,6 @@ MyCodeName = sys.argv[2]
 # runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
-# ### -------------------------------------------------------------------
-# MyCodeTitle  = "RyanCode System ( 範例 )"
-# MyCodeString = '''
-# ###  System 範例程式 ####
-# ### file: mainCode_System
-# xxxxxxxxxxxxxxxxxxxxxxxxxxx
-# '''
-# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
-
-
-
-
-
-
-
 ### -------------------------------------------------------------------
 MyCodeTitle  = "RyanCode System ( ubuntu nvidia gpu cuda tf pytorch 安裝 )"
 MyCodeString = '''
@@ -416,7 +401,7 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 ### -------------------------------------------------------------------
-MyCodeTitle  = "RyanCode System ( Win firewall )"
+MyCodeTitle  = "RyanCode System ( windows firewall )"
 MyCodeString = '''
 ###  System Win firewall ####
 ### file: mainCode_System
@@ -546,12 +531,17 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 ### -------------------------------------------------------------------
-MyCodeTitle  = "RyanCode System ( vino vnc setup )"
+MyCodeTitle  = "RyanCode System ( ubuntu vino vnc setup )"
 MyCodeString = '''
-###  System vino vnc setup ####
+### file: mainCode_System
 # set for windows vnc
 gsettings list-recursively org.gnome.Vino
+
 gsettings set org.gnome.Vino require-encryption false
+gsettings set org.gnome.Vino vnc-password $(echo -n '1234'|base64)
+gsettings set org.gnome.Vino prompt-enabled false
+gsettings set org.gnome.Vino authentication-methods "['vnc']"
+
 
 #set-up
 vino-preferences
@@ -559,6 +549,7 @@ vino-preferences
 #run-on service
 /usr/lib/vino/
 ./vino-server > /dev/null &
+./vino-server --display=:0 > /dev/null &
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
@@ -863,6 +854,7 @@ MyCodeTitle  = "RyanCode System ( num 流水號 )"
 MyCodeString = '''
 ###  System num 流水號 ####
 ### file: mainCode_System
+0
 1
 2
 3
