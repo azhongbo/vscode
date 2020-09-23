@@ -44,6 +44,21 @@ MyCodeName = sys.argv[2]
 # runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
+# ### -------------------------------------------------------------------
+# MyCodeTitle  = "RyanCode System ( 範例 )"
+# MyCodeString = '''
+# ###  System 範例程式 ####
+# ### file: mainCode_System
+# xxxxxxxxxxxxxxxxxxxxxxxxxxx
+# '''
+# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+
+
+
+
+
 ### -------------------------------------------------------------------
 MyCodeTitle  = "RyanCode System ( ubuntu nvidia gpu cuda tf pytorch 安裝 )"
 MyCodeString = '''
