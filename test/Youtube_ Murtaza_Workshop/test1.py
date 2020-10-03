@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-
+import time
 # https://www.youtube.com/channel/UCYUjYU5FveRAscQ8V21w81A
 # https://github.com/murtazahassan
 # apt-get install v4l-utils 
@@ -225,21 +225,41 @@ def stackImages(scale,imgArray):
 
 
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(2)
 cap.set(3,640)
 cap.set(4,480)
 cap.set(10,50) #亮度
 
 while True:
     sucess, img = cap.read()
-    # imgGray  = cv2.cvtColor( img , cv2.COLOR_BGR2GRAY )
-    # imgBlur  = cv2.GaussianBlur( imgGray , (7,7),1  )
-    # imgCanny = cv2.Canny( imgBlur,50,50)
+
+    imgGray  = cv2.cvtColor( img , cv2.COLOR_BGR2GRAY )
+    imgBlur  = cv2.GaussianBlur( imgGray , (7,7),1  )
+    imgCanny = cv2.Canny( imgBlur,50,50)
+    imgCanny = cv2.dilate( imgCanny , np.ones((5,5),np.uint8) , iterations=2 ) ## 邊緣檢測-增強
+
+    imgContour = img.copy()
+
+    contours,hierarchy = cv2.findContours(imgCanny,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
+
+    time.sleep(0.2)
+
+    for cnt in contours:
+        area = cv2.contourArea(cnt)
+        peri = cv2.arcLength(cnt,True) ## 邊緣長度 - 取得
+        approx = cv2.approxPolyDP(cnt,0.02*peri,True)  ## 頂點數量 - 取得
+        x,y,w,h = cv2.boundingRect(approx)  ## 頂點座標 - 取得
+        print(x,y,area,type(area))
+
+        if area > 200:
+            try:
+                cv2.drawContours( imgContour , cnt , -1 ,(255,0,0) ,3  ) ## 畫出外框
+                cv2.putText(imgContour, str(int(area))   , (x+(w//2),y+(h//2)),cv2.FONT_HERSHEY_COMPLEX,0.7,(0,0,255),1) ## 標注
+            except:
+                pass
 
 
-    cv2.imshow("imgH",img)
-
-    # cv2.imshow("Original",  stackImages(0.7, ( [img,imgGray,imgCanny] )) )
+    cv2.imshow("Original",  stackImages(0.7, ( [img,imgCanny,imgContour] )) )
 
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
