@@ -44,6 +44,87 @@ MyCodeName = sys.argv[2]
 # runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
+# ### -------------------------------------------------------------------
+# MyCodeTitle  = "RyanCode System ( 範例 )"
+# MyCodeString = '''
+# ###  System 範例程式 ####
+# ### file: mainCode_System
+# xxxxxxxxxxxxxxxxxxxxxxxxxxx
+# '''
+# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+# ### -------------------------------------------------------------------
+# MyCodeTitle  = "RyanCode System ( 範例 )"
+# MyCodeString = '''
+# ###  System 範例程式 ####
+# ### file: mainCode_System
+# xxxxxxxxxxxxxxxxxxxxxxxxxxx
+# '''
+# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+# ### -------------------------------------------------------------------
+# MyCodeTitle  = "RyanCode System ( 範例 )"
+# MyCodeString = '''
+# ###  System 範例程式 ####
+# ### file: mainCode_System
+# xxxxxxxxxxxxxxxxxxxxxxxxxxx
+# '''
+# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+
+
+
+### -------------------------------------------------------------------
+MyCodeTitle  = "RyanCode System ( Text OCR 文字辨識 安裝 Tesseract )"
+MyCodeString = '''
+###  System Text OCR 文字辨識 安裝 Tesseract  ####
+### file: mainCode_System
+# 安裝 Tesseract 4.x
+sudo apt install tesseract-ocr
+
+# 安裝 Developer Tools
+sudo apt install libtesseract-dev
+
+# 安裝其他需要前置的套件
+sudo apt-get -y install g++
+sudo apt-get -y install autoconf automake libtool
+sudo apt-get -y install pkg-config
+sudo apt-get -y install libpng-dev
+sudo apt-get -y install libjpeg8-dev
+sudo apt-get -y install libtiff5-dev
+sudo apt-get -y install zlib1g-dev
+
+# 如果需要training tool, 則需要安裝
+sudo apt-get -y install libicu-dev
+sudo apt-get -y install libpango1.0-dev
+sudo apt-get -y install libcairo2-dev
+
+# 安裝Leptonica
+sudo apt-get install libleptonica-dev
+
+# 為了幫助可以在command line 上直接執行Tesseract
+sudo snap install --channel=edge tesseract
+
+# 如我們要識別英文以及繁體中文
+sudo apt-get install tesseract-ocr-eng tesseract-ocr-chi-tra
+sudo apt-get install tesseract-ocr-jpn tesseract-ocr-chi-sim
+
+## Python 
+pip install pytesseract
+pip install pillow
+
+## 顯示版本
+tesseract --version
+
+## 顯示辨識語言
+tesseract --list-langs
+'''
+runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
 ### -------------------------------------------------------------------
 MyCodeTitle  = "RyanCode System ( ubuntu nvidia gpu cuda tf pytorch 安裝 )"
 MyCodeString = '''
