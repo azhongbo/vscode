@@ -44,6 +44,48 @@ MyCodeName = sys.argv[2]
 # runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
+# ### -------------------------------------------------------------------
+# MyCodeTitle  = "RyanCode Python Pandas ( 範例 )"
+# MyCodeString = '''
+# ###  Python Pandas 範例程式 ####
+### file: mainCode_Python_Pandas
+
+# xxxxxxxxxxxxxxxxxxxxxxxxxxx
+# '''
+# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+### -------------------------------------------------------------------
+MyCodeTitle  = "RyanCode Python Pandas ( Apply Map ApplyMap )"
+MyCodeString = '''
+###  Python Pandas 範例程式 ####
+## file: mainCode_Python_Pandas
+
+### Map : 將函數套用到 Series 上每個元素 ###
+def myFunc(myStr):
+    return myStr.replace(" ","")
+
+df['data'].map(myFunc) ## 使用 function
+df['data'].map( lambda e: e.replace(" ","") ) ## 使用匿名函數
+
+
+### Apply : 將函數套用到 DataFrame 上的行與列 ###
+df = pd.DataFrame( [[10,20,30],[40,50,60],[70,80,90]] , columns = ['First','Second','Third'] )
+df.apply( lambda e: e.max() - e.min() , axis=1 )  # 行 axis=0   列 axis=1
+
+
+## ApplyMap : 將函數套用到 DataFrame 上每個元素
+df.applymap( lambda e: '-' if pandas.isnull(e) else e )  ## 將缺失值 Nan 換成 -
+
+'''
+runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+
+
+
+
+
 ### -------------------------------------------------------------------
 MyCodeTitle  = "RyanCode Python Pandas ( DataFrame 操作 )"
 MyCodeString = '''
