@@ -168,18 +168,28 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 ### -------------------------------------------------------------------
-MyCodeTitle  = "RyanCode Tensorflow Basic ( one hot )"
+MyCodeTitle  = "RyanCode Tensorflow Basic ( one hot / batch 批次取得 )"
 MyCodeString = '''
-###  Tensorflow one hot ####
+###  Tensorflow one hot / batch 批次取得 ####
 ### file: mainCode_tf_basic
 
-# 方法一
+# one hot 方法一
 xlabel1 = ( np.eye(10)[xlabel] )
 
-# 方法二
+# one hot 方法二
 def one_hot(values):
     n_values = np.max(values) + 1
     return np.eye(n_values)[values]
+
+# batch 批次取得 方法
+
+batch_size = 5000 ## 每次訓練比數
+data_totoal_size = train_labels.shape[0] ## 訓練資料的大小
+for step in range(2001):
+    offset1 = (step * batch_size) % (data_totoal_size - batch_size)
+    offset2 = (step * batch_size) % (data_totoal_size - batch_size) + batch_size
+    batch_data   = train_dataset[offset1:offset2, :, :, :] ## 開始取得訓練資料
+    batch_labels = train_labels[offset1:offset2, :]        ## 開始取得訓練 label 資料 
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
