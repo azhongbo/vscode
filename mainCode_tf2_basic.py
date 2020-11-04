@@ -43,6 +43,46 @@ MyCodeName = sys.argv[2]
 # runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
+# ### -------------------------------------------------------------------
+# MyCodeTitle  = "RyanCode tf2 Basic ( xxxx )"
+# MyCodeString = '''
+# ###  Tensorflow2 xxxx ####
+# ### file: mainCode_tf2_basic
+# xxxxxxxxxxxxxxxxxxxxxxxxxxx
+# '''
+# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+### -------------------------------------------------------------------
+MyCodeTitle  = "RyanCode tf2 Basic ( plt 顯示 mnist / car10 / cifar100 圖片 )"
+MyCodeString = '''
+###  Tensorflow2 xxxx ####
+### file: mainCode_tf2_basic
+import matplotlib.pyplot as plt
+import numpy as np
+def myShow(x_data, y_data ):
+    plt.figure(figsize=(5, 3))
+    plt.subplots_adjust(hspace=0.1)
+    for n in range(15):
+        plt.subplot(3, 5, n+1)
+        plt.imshow(x_data[n])
+        plt.axis('off')
+    print(y_data[:15])
+
+(x1,y1), (x1_,y1_) = datasets.mnist.load_data()
+(x2,y2), (x2_,y2_) = datasets.cifar10.load_data()
+(x3,y3), (x3_,y3_) = datasets.cifar100.load_data()
+
+myShow(x1,y1)
+# myShow(x2,np.reshape(y2,[-1]))
+# myShow(x3,np.reshape(y3,[-1]))
+'''
+runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+
+
+
 ### -------------------------------------------------------------------
 MyCodeTitle  = "RyanCode tf2 Basic ( gpu cuda memory error  )"
 MyCodeString = '''

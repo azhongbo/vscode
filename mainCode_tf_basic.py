@@ -33,6 +33,20 @@ MyCodeName = sys.argv[2]
 # runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
+# ### -------------------------------------------------------------------
+# MyCodeTitle  = "RyanCode Tensorflow Basic ( xxxx )"
+# MyCodeString = '''
+# ###  Tensorflow xxxx ####
+# ### file: mainCode_tf_basic
+# xxxxxxxxxxxxxxxxxxxxxxxxxxx
+# '''
+# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+
+
+
+
 ### -------------------------------------------------------------------
 MyCodeTitle  = "RyanCode Tensorflow Basic ( eager mode 快速模式 )"
 MyCodeString = '''
