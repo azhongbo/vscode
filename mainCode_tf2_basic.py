@@ -54,6 +54,137 @@ MyCodeName = sys.argv[2]
 
 
 ### -------------------------------------------------------------------
+MyCodeTitle  = "RyanCode tf2 Basic ( Aladdin Persson 4 CNN cifar10 )"
+MyCodeString = '''
+###  Tensorflow2 xxxx ####
+### file: mainCode_tf2_basic
+## TensorFlow Tutorial 4 - Convolutional Neural Networks with Sequential and Functional API
+## https://www.youtube.com/watch?v=WAciKiDP2bo
+## https://github.com/aladdinpersson/Machine-Learning-Collection/blob/master/ML/TensorFlow/Basics/tutorial4-convnet.py
+
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+from tensorflow.keras.datasets import cifar10
+
+physical_device = tf.config.list_physical_devices('GPU')
+tf.config.experimental.set_memory_growth( physical_device[0] , True )
+(x_train, y_train) , (x_test, y_test) = cifar10.load_data()
+x_train = x_train.astype("float32") / 255.0
+x_test  = x_test.astype("float32") / 255.0
+
+## Sequential mode ##
+# model = keras.Sequential([
+#     keras.Input(shape=[32, 32, 3]),
+#     layers.Conv2D(32, 3, padding="valid", activation="relu"),
+#     layers.MaxPooling2D(pool_size=[2,2]),
+#     layers.Conv2D(64, 3, activation="relu"),
+#     layers.MaxPooling2D(pool_size=[2,2]),
+#     layers.Conv2D(128,3, activation="relu"),
+#     layers.Flatten(),
+#     layers.Dense(64, activation="relu"),
+#     layers.Dense(10)
+# ])
+
+
+## functional mode ##
+inputs = keras.Input(shape=(32, 32, 3))
+
+x = layers.Conv2D(32, 3, padding="valid")(inputs)
+x = layers.BatchNormalization()(x)
+x = keras.activations.relu(x)
+x = layers.MaxPooling2D(pool_size=[2,2])(x)
+
+x = layers.Conv2D(64, 3, padding="same")(x)
+x = layers.BatchNormalization()(x)
+x = keras.activations.relu(x)
+x = layers.MaxPooling2D(pool_size=[2,2])(x)
+
+x = layers.Conv2D(128, 3)(x)
+x = layers.BatchNormalization()(x)
+x = keras.activations.relu(x)
+
+x = layers.Flatten()(x)
+x = layers.Dense(64, activation="relu")(x)
+outputs = layers.Dense(10)(x)
+model = keras.Model(inputs=inputs, outputs=outputs)
+
+print(model.summary())
+
+model.compile(
+    loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+    optimizer = keras.optimizers.Adam(lr=3e-4),
+    metrics=["accuracy"]
+)
+
+model.fit(x_train, y_train, batch_size=64, epochs=10, verbose=2)
+model.evaluate(x_test, y_test, batch_size=64, verbose=2)
+'''
+runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+### -------------------------------------------------------------------
+MyCodeTitle  = "RyanCode tf2 Basic ( Aladdin Persson 3 NN mnist )"
+MyCodeString = '''
+###  Aladdin Persson 3 Neural Networks mnist ####
+### file: mainCode_tf2_basic
+# TensorFlow Tutorial 3 - Neural Networks with Sequential and Functional API
+# https://www.youtube.com/watch?v=pAhPiF3yiXI
+# https://github.com/aladdinpersson/Machine-Learning-Collection/blob/master/ML/TensorFlow/Basics/tutorial3-neuralnetwork.py
+
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+from tensorflow.keras.datasets import mnist
+
+physical_devices = tf.config.list_physical_devices('GPU')
+tf.config.experimental.set_memory_growth(physical_devices[0],True)
+
+
+(x_train,y_train) , (x_test, y_test ) = mnist.load_data()
+x_train = x_train.reshape(-1,28*28).astype('float32') / 255.0
+x_test  = x_test.reshape(-1,28*28).astype("float32") / 255.0
+
+## Sequential mode ##
+# model = keras.Sequential([
+#     keras.Input(shape=(28*28)),
+#     layers.Dense(512, activation='relu'),
+#     layers.Dense(256, activation='relu'),
+#     layers.Dense(10),
+# ])
+
+# model = keras.Sequential()
+# model.add(keras.Input(shape=(784)) )
+# model.add(layers.Dense(512,activation="relu"))
+# model.add(layers.Dense(256,activation="relu"))
+# model.add(layers.Dense(10,activation="relu"))
+
+## functional mode ##
+inputs = keras.Input(shape=[784])
+x = layers.Dense(512,activation="relu",name="h1")(inputs)
+x = layers.Dense(256,activation="relu",name="h2")(x)
+outputs = layers.Dense(10,activation="softmax")(x)
+model = keras.Model(inputs=inputs,outputs=outputs)
+
+print(model.summary())
+
+model.compile(
+    loss=keras.losses.SparseCategoricalCrossentropy(from_logits=False),
+    optimizer=keras.optimizers.Adam(lr=0.001),
+    metrics=["accuracy"],
+)
+
+model.fit(x_train, y_train, batch_size=32, epochs=5, verbose=2)
+model.evaluate(x_test,y_test, batch_size=32, verbose=2)
+'''
+runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+### -------------------------------------------------------------------
 MyCodeTitle  = "RyanCode tf2 Basic ( plt 顯示 mnist / car10 / cifar100 圖片 )"
 MyCodeString = '''
 ###  Tensorflow2 xxxx ####
@@ -165,112 +296,6 @@ print('Run1: ', cpu_time, gpu_time , cpu_time/gpu_time )
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
-
-### -------------------------------------------------------------------
-MyCodeTitle  = "RyanCode tf2 Basic ( mnist )"
-MyCodeString = '''
-###  Tensorflow2 mnist ####
-### file: mainCode_tf2_basic
-import  tensorflow as tf
-from    tensorflow.keras import datasets, layers, optimizers, Sequential, metrics
-
-(xs, ys),_ = datasets.mnist.load_data()
-
-xs = tf.convert_to_tensor(xs, dtype=tf.float32) / 255.
-db = tf.data.Dataset.from_tensor_slices((xs,ys)).batch(200)
-
-model = Sequential([ layers.Dense(512, activation='relu'),
-                     layers.Dense(256, activation='relu'),
-                     layers.Dense(10) ])
-
-model.build(input_shape=(None, 28*28))
-model.summary()
-
-optimizer = optimizers.SGD(lr=0.001)
-acc_meter = metrics.Accuracy()
-
-def train_epoch(epoch):
-
-    for step, (x,y) in enumerate(db):
-
-        with tf.GradientTape() as tape:        
-            x        = tf.reshape(x, (-1, 28*28))   # x        [?, 28, 28] => [?, 784]        
-            y_onehot = tf.one_hot(y, depth=10)      # y_onehot [?]         => [?, 10]        
-            out = model(x)                          # out      [?, 784]    => [?, 10]                
-            loss = tf.square(out-y_onehot)          # loss     [?, 10]        
-            loss = tf.reduce_sum(loss) / x.shape[0] # loss     [?]
-
-        acc_meter.update_state(tf.argmax(out, axis=1), y)
-
-        grads = tape.gradient(loss, model.trainable_variables)  ## 優化 和 更新 [w1,w2,w3,b1,b2,b3]
-        optimizer.apply_gradients(zip(grads, model.trainable_variables)) ## w' w-lr*grad
-
-
-        if step % 200==0:
-
-            print(step, 'loss:', float(loss), 'acc:', acc_meter.result().numpy())
-            acc_meter.reset_states()
-
-
-for epoch in range(30):
-    train_epoch(epoch)
-
-'''
-runAllData(MyCodeTitle,MyCodeString,MyCodeName)
-
-
-
-
-### -------------------------------------------------------------------
-MyCodeTitle  = "RyanCode tf2 Basic ( linear_regression )"
-MyCodeString = '''
-###  Tensorflow2 linear_regression ####
-### file: mainCode_tf2_basic
-#https://github.com/aymericdamien/TensorFlow-Examples/blob/master/tensorflow_v2/notebooks/2_BasicModels/linear_regression.ipynb
-import tensorflow as tf
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Training Data.
-X = np.array([3.3,4.4,5.5,6.71,6.93,4.168,9.779,6.182,7.59,2.167,7.042,10.791,5.313,7.997,5.654,9.27,3.1])
-Y = np.array([1.7,2.76,2.09,3.19,1.694,1.573,3.366,2.596,2.53,1.221,2.827,3.465,1.65,2.904,2.42,2.94,1.3])
-
-W = tf.Variable(np.random.randn(), name="weight")
-b = tf.Variable(np.random.randn(), name="bias")
-
-# Optimization process. 
-def run_optimization(step):
-    # Wrap computation inside a GradientTape for automatic differentiation.
-    with tf.GradientTape() as g:
-        pred = ( W * X + b )  # Linear regression (Wx + b).
-        loss= tf.reduce_mean(tf.square( pred - Y)) # Mean square error.
-        
-        if step % 50 == 0:
-            print( f"step: {step}, loss: {loss}, W: {W.numpy()}, b: {b.numpy()}" )
-            #print("step: %i, loss: %f, W: %f, b: %f" % (step, loss, W.numpy(), b.numpy()))
-
-    # Compute gradients.
-    gradients = g.gradient(loss, [W, b])
-    
-    # Stochastic Gradient Descent Optimizer.
-    # Update W and b following gradients.
-    #optimizer.apply_gradients(zip(gradients, [W, b]))
-    tf.optimizers.SGD(0.01).apply_gradients(zip(gradients, [W, b]))
-
-# Run training for the given number of steps.
-training_steps = 1000
-
-for step in range(1, training_steps + 1):
-    # Run the optimization to update W and b values.
-    run_optimization(step)
-        
-# Graphic display
-plt.plot(X, Y, 'ro', label='Original data')
-plt.plot(X, np.array(W * X + b), label='Fitted line')
-plt.legend()
-plt.show()
-'''
-runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 ### -------------------------------------------------------------------
 MyCodeTitle  = "RyanCode tf2 Basic ( fashion mnist 圖像分類 )"
