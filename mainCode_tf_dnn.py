@@ -378,86 +378,6 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 ### -------------------------------------------------------------------
-MyCodeTitle  = "RyanCode Tensorflow DNN ( mnist - model in function )"
-MyCodeString = '''
-###  Tensorflow DNN mnist - model in function ####
-### file: mainCode_tf_dnn
-import tensorflow as tf
-from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
-
-# Parameters
-learning_rate = 0.001
-training_epochs = 15
-batch_size = 100
-display_step = 1
-
-# Network Parameters
-n_hidden_1 = 128 # 1st layer number of features
-n_hidden_2 = 64 # 2nd layer number of features
-n_input = 784 # MNIST data input (img shape: 28*28)
-n_classes = 10 # MNIST total classes (0-9 digits)
-
-# tf Graph input
-x = tf.placeholder("float", [None, n_input])
-y = tf.placeholder("float", [None, n_classes])
-
-# Create model
-def multilayer_perceptron(x, weights, biases):
-  
-    layer_1 = tf.add(tf.matmul(x, weights['h1']), biases['b1'])
-    out_1 = tf.nn.relu(layer_1)
-
-    layer_2 = tf.add(tf.matmul(out_1, weights['h2']), biases['b2'])
-    out_2 = tf.nn.relu(layer_2)
-  
-    out_layer = tf.matmul(out_2, weights['out']) + biases['out']
-    return out_layer
-
-# Store layers weight & bias
-weights = {
-    'h1': tf.Variable(tf.random_normal([n_input, n_hidden_1])),
-    'h2': tf.Variable(tf.random_normal([n_hidden_1, n_hidden_2])),
-    'out': tf.Variable(tf.random_normal([n_hidden_2, n_classes]))
-}
-biases = {
-    'b1': tf.Variable(tf.random_normal([n_hidden_1])),
-    'b2': tf.Variable(tf.random_normal([n_hidden_2])),
-    'out': tf.Variable(tf.random_normal([n_classes]))
-}
-
-pred = multilayer_perceptron(x, weights, biases)
-
-cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred, labels=y))
-optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
-
-# Test model
-correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-# Calculate accuracy
-accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
-
-with tf.Session() as sess:
-    sess.run(tf.global_variables_initializer())
-
-    for epoch in range(training_epochs):
-        avg_cost = 0.
-        total_batch = int(mnist.train.num_examples/batch_size)
-        for i in range(total_batch):
-            batch_x, batch_y = mnist.train.next_batch(batch_size)
-            # Run optimization op (backprop) and cost op (to get loss value)
-            _, c = sess.run([optimizer, cost], feed_dict={x: batch_x, y: batch_y})
-
-            avg_cost += c / total_batch
-        # Display logs per epoch step
-        if epoch % display_step == 0:
-            print("Epoch {}, cost= {}".format(epoch+1,avg_cost))
-
-    print("Accuracy: {}".format(accuracy.eval({x: mnist.test.images, y: mnist.test.labels})))
-'''
-runAllData(MyCodeTitle,MyCodeString,MyCodeName)
-
-
-### -------------------------------------------------------------------
 MyCodeTitle  = "RyanCode Tensorflow DNN ( mnist )"
 MyCodeString = '''
 ###  Tensorflow DNN mnist ####
@@ -516,7 +436,133 @@ with tf.Session() as sess:
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
+### -------------------------------------------------------------------
+MyCodeTitle  = "RyanCode Tensorflow NN ( mnist )"
+MyCodeString = '''
+###  Tensorflow NN MNIST ####
+### file: mainCode_tf_dnn
+import tensorflow as tf
+import numpy as np
+from tensorflow.keras import layers
+from tensorflow.keras import datasets
 
+tf.compat.v1.disable_eager_execution()
+tf.compat.v1.reset_default_graph()
+
+(x_train,y_train) , (x_test,y_test)  = datasets.mnist.load_data()
+
+x_train = np.reshape( x_train/255.0 ,[-1,784] )
+x_test  = np.reshape( x_test/255.0  ,[-1,784] )
+
+y_train = ( np.eye(10)[y_train] )
+y_test  = ( np.eye(10)[y_test]  )
+
+x = tf.compat.v1.placeholder( tf.float32, [None,784] , name="x")
+y = tf.compat.v1.placeholder( tf.float32, [None,10]  , name="y")
+
+W = tf.Variable( tf.zeros([784,10]))
+b = tf.Variable( tf.zeros([10]))
+
+y_predict = tf.matmul(x,W) + b
+
+cross_entropy = tf.reduce_mean( tf.nn.softmax_cross_entropy_with_logits(labels=y,logits=y_predict)  )
+train_step    = tf.compat.v1.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
+
+correct_prediction = tf.equal( tf.argmax(y_predict,1) , tf.argmax(y,1) )
+accuracy           = tf.reduce_mean(tf.cast(correct_prediction, tf.float32)  )
+
+with tf.compat.v1.Session() as sess:
+    sess.run( tf.compat.v1.global_variables_initializer()  )
+    
+    batch_size = 5000 ## 每次訓練比數
+    data_totoal_size = x_train.shape[0] ## 訓練資料的大小
+    
+    for epoch in range(10):
+        for step in range( int(data_totoal_size/batch_size) ):            
+            x_batch = x_train[ step*batch_size:(step+1)*batch_size,:]
+            y_batch = y_train[ step*batch_size:(step+1)*batch_size,:]
+            
+            train_step_ , cross_entropy_  = sess.run( [train_step,cross_entropy], feed_dict={x:x_batch , y: y_batch} )
+            
+            #if step %50==0:
+            #    print(f"epoch:{epoch} step:{step} batch:[{step*batch_size}:{(step+1)*batch_size}]  cross_entropy is {cross_entropy_}")
+            
+            print(f"epoch:{epoch} step:{step} batch:[{step*batch_size}:{(step+1)*batch_size}]  cross_entropy is {cross_entropy_}")
+    
+    accuracy_ = sess.run(accuracy,feed_dict={x:x_test,y:y_test})
+    print(f'Testing...... accuracy is {accuracy_}')
+'''
+runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+### -------------------------------------------------------------------
+MyCodeTitle  = "RyanCode Tensorflow DNN ( mnist )"
+MyCodeString = '''
+###  Tensorflow DNN MNIST ####
+### file: mainCode_tf_dnn
+
+import tensorflow as tf
+import numpy as np
+from tensorflow.keras import layers
+from tensorflow.keras import datasets
+
+tf.compat.v1.disable_eager_execution()
+tf.compat.v1.reset_default_graph()
+
+(x_train,y_train) , (x_test,y_test)  = datasets.mnist.load_data()
+
+x_train = np.reshape(x_train/255.0 ,[-1,784])
+x_test  = np.reshape(x_test/255    ,[-1,784])
+
+y_train = np.eye(10)[y_train]
+y_test  = np.eye(10)[y_test]
+
+x = tf.compat.v1.placeholder( tf.float32 , [None,784])
+y = tf.compat.v1.placeholder( tf.float32 , [None,10])
+
+W1 = tf.Variable( tf.compat.v1.truncated_normal([784,128],stddev=0.1))
+b1 = tf.Variable( tf.compat.v1.truncated_normal([128]    ,stddev=0.1))
+
+W2 = tf.Variable( tf.compat.v1.truncated_normal([128,64] ,stddev=0.1))
+b2 = tf.Variable( tf.compat.v1.truncated_normal([64]     ,stddev=0.1))
+
+W3 = tf.Variable( tf.compat.v1.truncated_normal([64,10]  ,stddev=0.1))
+b3 = tf.Variable( tf.compat.v1.truncated_normal([10]     ,stddev=0.1))
+
+layer1 = tf.nn.relu(tf.matmul(x     ,W1) +b1)
+layer2 = tf.nn.relu(tf.matmul(layer1,W2) +b2)
+layer3 = tf.nn.relu(tf.matmul(layer2,W3) +b3)
+
+y_predict = layer3
+
+cross_entropy = tf.reduce_mean( tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=y_predict))
+train_step    = tf.compat.v1.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
+
+correct_prediction = tf.equal( tf.argmax(y_predict,1) , tf.argmax(y,1) )
+accuracy = tf.reduce_mean(tf.cast(correct_prediction,tf.float32 ))
+
+with tf.compat.v1.Session() as sess:
+    sess.run( tf.compat.v1.global_variables_initializer()  )
+    
+    batch_size = 5000 ## 每次訓練比數
+    data_totoal_size = x_train.shape[0] ## 訓練資料的大小
+    
+    for epoch in range(50):
+        for step in range( int(data_totoal_size/batch_size) ):            
+            x_batch = x_train[ step*batch_size:(step+1)*batch_size,:]
+            y_batch = y_train[ step*batch_size:(step+1)*batch_size,:]
+            
+            train_step_ , cross_entropy_  = sess.run( [train_step,cross_entropy], feed_dict={x:x_batch , y: y_batch} )
+            
+            #if step %50==0:
+            #    print(f"epoch:{epoch} step:{step} batch:[{step*batch_size}:{(step+1)*batch_size}]  cross_entropy is {cross_entropy_}")
+            
+            print(f"epoch:{epoch} step:{step} batch:[{step*batch_size}:{(step+1)*batch_size}]  cross_entropy is {cross_entropy_}")
+    
+    accuracy_ = sess.run(accuracy,feed_dict={x:x_test,y:y_test})
+    print(f'Testing...... accuracy is {accuracy_}')
+'''
+runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 
