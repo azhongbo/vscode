@@ -175,12 +175,38 @@ export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:$LD_LIBRARY_PATH
 ## 重新載入 bashrc
 source ~/.bashrc
 
+## 安裝 cuDNN
+## 解壓縮後, 將 lib64/*  複製到/usr/local/cuda-10.1/lib64/
+sudo cp cudnn-10.1-linux-x64-v7.6.5.32/cuda/lib64/* /usr/local/cuda-10.1/lib64/
+
+
+
+##### CUDA 11.1 安裝 ##################################################
+sudo ./cuda_11.1.1_455.32.00_linux.run
+
+## 編輯 ~/.bashrc
+export PATH="/usr/local/cuda-11.1/bin:$PATH"
+export LD_LIBRARY_PATH=/usr/local/cuda-11.1/lib64:$LD_LIBRARY_PATH
+
+## 重新載入 bashrc
+source ~/.bashrc
+
+## 安裝 cuDNN
+## 解壓縮 cudnn-11.1-linux-x64-v8.0.5.39.tgz , 將 lib64/*  複製到/usr/local/cuda-10.1/lib64/
+sudo cp cudnn-11.1/lib64/* /usr/local/cuda-11.1/lib64/
+
+
+
 ## 測試 , 顯示如下
 nvcc -V
 # nvcc: NVIDIA (R) Cuda compiler driver
 # Copyright (c) 2005-2019 NVIDIA Corporation
 # Built on Fri_Feb__8_19:08:17_PST_2019
 # Cuda compilation tools, release 10.1, V10.1.105
+
+##### 安裝 Pytorch 和 Tensorflow-GPU ###############################
+conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
+conda install tensorflow-gpu==2.2.0
 
 
 ##### 安裝 Anaconda3 ###############################################
@@ -191,16 +217,6 @@ nvcc -V
 sudo ./Anaconda3-2020.02-Linux-x86_64.sh   ## 安裝 for 全部 , 路徑指到
 
 ##在 .bashrc 找到 Anaconda 的環境變數, 並且複製到 /root/.bashrc    ">>> conda initialize >>>"
-
-
-##### 安裝 cuDNN ##################################################
-## 解壓縮後, 將 lib64/*  複製到/usr/local/cuda-10.1/lib64/
-sudo cp cudnn-10.1-linux-x64-v7.6.5.32/cuda/lib64/* /usr/local/cuda-10.1/lib64/
-
-
-##### 安裝 Pytorch 和 Tensorflow-GPU ###############################
-conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
-conda install tensorflow-gpu==2.2.0
 
 
 ##### 簡易測試 GPU ##################################################
