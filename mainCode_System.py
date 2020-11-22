@@ -64,14 +64,45 @@ MyCodeName = sys.argv[2]
 # runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
-# ### -------------------------------------------------------------------
-# MyCodeTitle  = "RyanCode System ( 範例 )"
-# MyCodeString = '''
-# ###  System 範例程式 ####
-# ### file: mainCode_System
-# xxxxxxxxxxxxxxxxxxxxxxxxxxx
-# '''
-# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+### -------------------------------------------------------------------
+MyCodeTitle  = "RyanCode System ( qemu androix-x86)"
+MyCodeString = '''
+###  System qemu androix-x86 ####
+### file: mainCode_System
+## https://www.youtube.com/watch?v=bz8FugjsHs8
+
+## 安裝套件
+sudo apt install -y build-essential libepoxy-dev libdrm-dev libgbm-dev libx11-dev libvirglrenderer-dev libpulse-dev libsdl2-dev libgtk-3-dev
+
+## 下載 qemu
+wget https://www.youtube.com/redirect?q=https%3A%2F%2Fdownload.qemu.org%2Fqemu-3.1.1.1.tar.bz2&redir_token=QUFFLUhqbFY4SVBjQlhHY29VVlM3M0lPVjMtVzR6dGFvd3xBQ3Jtc0trZVFnc18tNDRObk5BY2hDQXplVFNRcDR4T2FsTXJXcWZLeXB0Z21XbGV1dGJ2eGR3NGhKR0M3V3lGYVpnSFAxZTFBWDIyMW80Sm12ektPa0hURERKYkp3b1dITUV5ZDBNQjJBRmVzTm5wM0FoX0FOYw%3D%3D&event=video_description&v=bz8FugjsHs8
+
+
+## 封裝 qumu
+mkdir build
+cd build/
+../configure --with-sdlabi=2.0 --enable-sdl --enable-opengl --enable-virglrenderer --enable-system --enable-modules --audio-drv-list=pa --target-list=x86_64-softmmu --enable-kvm --enable-gtk
+make
+
+sudo apt install qemu-utils
+
+## 建立 virtual hard disk:
+qemu-img create -f qcow2 Android9.img 128G
+
+## 設定群組
+sudo adduser klcppp kvm
+sudo !!sudo chmod 666 /dev/kvm
+
+## 設定權限 vi /lib/udev/rules.d/99-kvm.rules
+KERNEL=="kvm", GROUP="kvm", MODE="0666"
+
+## 開始安裝
+./x86_64-softmmu/qemu-system-x86_64 -boot d -cdrom "/sdb2/VirtualBoxVMs/android-x86_64-9.0-r2.iso" -enable-kvm -smp 2 -device virtio-vga,virgl=on  -net nic -net user,hostfwd=tcp::5555-:22 -cpu host -soundhw es1370 -m 2048 -display sdl,gl=on -hda Android9.img
+
+## 開始運行 , 移除 CDROM
+./x86_64-softmmu/qemu-system-x86_64 -boot c -enable-kvm -smp 2 -device virtio-vga,virgl=on  -net nic -net user,hostfwd=tcp::5555-:22 -cpu host -soundhw es1370 -m 4096 -display sdl,gl=on -hda Android9.img
+'''
+runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 
