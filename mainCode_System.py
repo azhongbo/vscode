@@ -54,14 +54,27 @@ MyCodeName = sys.argv[2]
 # runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
-# ### -------------------------------------------------------------------
-# MyCodeTitle  = "RyanCode System ( 範例 )"
-# MyCodeString = '''
-# ###  System 範例程式 ####
-# ### file: mainCode_System
-# xxxxxxxxxxxxxxxxxxxxxxxxxxx
-# '''
-# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+### -------------------------------------------------------------------
+MyCodeTitle  = "RyanCode System ( Anaconda )"
+MyCodeString = '''
+###  System Anaconda ####
+### file: mainCode_System
+
+conda update conda #進行更新
+
+conda env list  #已經安裝幾個虛擬環境
+
+conda create --name myEnvName python=3.7  ##建立環境
+source activate myEnvName
+
+conda list   # list安裝套件
+
+conda install numpy pandas tensorflow-gpu==1.15 jupyter
+'''
+runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+
 
 
 ### -------------------------------------------------------------------
