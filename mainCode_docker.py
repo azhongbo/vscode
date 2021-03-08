@@ -42,17 +42,27 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 ### -------------------------------------------------------------------
-MyCodeTitle  = "RyanCode Docker ( Dockfile 範例 )"
+MyCodeTitle  = "RyanCode Docker ( Dockfile Ubuntu PHP 7.4 )"
 MyCodeString = '''
-###  Docker Dockfile ####
-Dockfile
-FROM tomcat
-WORKDIR         /usr/local/tomcat/webapps/
-RUN mkdir       /usr/local/tomcat/webapps/ROOT
-RUN echo okok > /usr/local/tomcat/webapps/ROOT/index.jsp
+###  Docker Ubuntu PHP 7.4 ####
 
-docker built -t myshop .
-docker images
+## Dockerfile
+FROM ubuntu
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata
+RUN ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime
+RUN apt-get -y install net-tools nmap apache2 php7.4 curl systemd php7.4-sqlite3 apache2-dev php7.4-ldap php7.4-curl sqlite3 php7.4-curl php7.4-gd php7.4-pgsql php7.4-xml php7.4-bz2 php7.4-mbstring iputils-ping vim
+RUN echo "ServerName localhost:80" >> /etc/apache2/apache2.conf
+RUN echo "Asia/Taipei" > /etc/timezone
+RUN dpkg-reconfigure --frontend noninteractive tzdata
+RUN echo "Asia/Taipei" > /etc/timezone
+EXPOSE 80
+CMD ["apachectl", "-D", "FOREGROUND"]
+
+
+## built & run image
+docker built -t UbuntuPHP74 .
+docker run -it --rm UbuntuPHP74 bash
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
