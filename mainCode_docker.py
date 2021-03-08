@@ -46,7 +46,7 @@ MyCodeTitle  = "RyanCode Docker ( Dockfile Ubuntu PHP 7.4 )"
 MyCodeString = '''
 ###  Docker Ubuntu PHP 7.4 ####
 
-## Dockerfile
+### 檔案: Dockerfile
 FROM ubuntu
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata
@@ -60,9 +60,15 @@ EXPOSE 80
 CMD ["apachectl", "-D", "FOREGROUND"]
 
 
-## built & run image
+### 檔案: startHttp
+#!/bin/bash
+apachectl -D FOREGROUND
+
+
+### 封裝 built 和 執行 run
 docker built -t UbuntuPHP74 .
 docker run -it --rm UbuntuPHP74 bash
+docker run -dit --rm -p 80:80 -v /usr/local/docker/UbuntuPHP74/html:/var/www/html --name php UbuntuPHP74 startHttp
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
