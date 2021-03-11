@@ -61,14 +61,12 @@ MyCodeString = '''
 ### file: mainCode_System
 
 conda update conda #進行更新
-
-conda env list  #已經安裝幾個虛擬環境
-
+conda env list     #已經安裝幾個虛擬環境
 conda create --name myEnvName python=3.7  ##建立環境
+
+
 source activate myEnvName
-
 conda list   # list安裝套件
-
 conda install numpy pandas tensorflow-gpu==1.15 jupyter
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
@@ -251,6 +249,7 @@ nvcc -V
 ##### 安裝 Pytorch 和 Tensorflow-GPU ###############################
 conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
 conda install tensorflow-gpu==2.2.0
+conda install nb_conda
 
 
 ##### 安裝 Anaconda3 ###############################################
