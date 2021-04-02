@@ -42,6 +42,11 @@ MyCodeString = '''
 ###  Docker url ####
 千锋Java教程：36 Docker 镜像 Dockerfile 定制镜像
 https://www.youtube.com/watch?v=xvtzu16n6lU&list=PLwDQt7s1o9J55UmZFIk6w16k3Kz0ke8x5&index=43
+
+
+這是 GitHub  上的一個新項目，簡介如是說：史上最全的 PyTorch  學習資源匯總。
+https://github.com/INTERMT/Awesome-PyTorch-Chinese
+
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
