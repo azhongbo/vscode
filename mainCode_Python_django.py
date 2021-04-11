@@ -100,20 +100,19 @@ INSTALLED_APPS = [
     'app',
 ]
 
+
+
+
+
 ## 修改 HelloJango/urls.py
 from django.contrib import admin
 from django.urls import path
 from app import views
 
 urlpatterns = [
+    path('',views.hello),
     path('admin/', admin.site.urls),
-    path('hello/', views.hello),
-    path('home/' , views.home,name='home'),
 ]
-
-
-## 建立 app/templates 目錄
-## 編輯 app/home.html
 
 
 ## 修改 app/views.py
@@ -121,12 +120,86 @@ urlpatterns = [
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def hello(request):
+def hello(request):    
     return HttpResponse("My Test")
 
+
+
+############################################
+## 網頁放置 HelloJango/app/templates/home.html
+############################################
+## 建立 app/templates/home.html
+
+## 修改 HelloJango/urls.py 的 urlpatterns 參數
+urlpatterns = [
+    ...
+    path('home/' , views.home,name='home'),
+]
+
+## 修改 app/views.py
 def home(request):
     return render(request,'home.html')
-    
+
+
+
+
+############################################
+## 網頁放置 根目錄 HelloJango/templates/test.html
+############################################
+
+## 修改 HelloJango/settings.py 中的 TEMPLATES , 加入 BASE_DIR 根目錄的 templates 位置
+'DIRS': [BASE_DIR, 'templates' ],
+
+## 修改 HelloJango/urls.py 的 urlpatterns 參數
+urlpatterns = [
+    ...
+    path('test/',views.test,name='test'),
+]
+
+## 修改 app/views.py
+def test(request):
+    return render(request,'test.html')
+
+
+
+############################################
+## 建立專案 app2 , http://127.0.0.1:8000/app2/index/
+############################################
+## 建立一個 app2
+python manage.py startapp app2
+
+## 修改 HelloJango/settings.py
+## 把它加入 INSTALLED_APPS：
+INSTALLED_APPS = [
+    ... ,
+    'app2',
+]
+
+
+## 修改 HelloJango/urls.py
+from django.urls import path, include
+urlpatterns = [
+    ...
+    path('app2/', include('app2.urls')),
+]
+
+
+## 加入 app2/urls.py
+from django.contrib import admin
+from django.urls import path
+from app2 import views
+
+urlpatterns = [
+    path('index/', views.index),
+]
+
+
+## 加入 app2/views.py
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def index(request):    
+    return HttpResponse("My app2")
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
