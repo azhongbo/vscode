@@ -200,6 +200,60 @@ from django.http import HttpResponse
 
 def index(request):    
     return HttpResponse("My app2")
+
+
+
+
+############################################
+## 建立專案 app2 , 建立 db
+############################################
+## 設定 databases 修改 app2/models
+class Student(models.Model):
+    s_name = models.CharField(max_length=16)
+    s_age = models.IntegerField(default=1)
+
+## 執行 makemigrations 建立 db
+python manage.py makemigrations
+python manage.py migrate
+
+
+## 加入 app2/urls.py
+urlpatterns = [
+    ...
+    path('addstudent/' , views.add_student),
+    path('getstudent/' , views.get_student),
+]
+
+## 加入 app2/views.py
+def add_student(request):
+    student = Student()
+    student.s_name = f"Albert{ random.randrange(100) }"
+    student.save()
+    return HttpResponse(f"Add Sucesses{student.s_name}")
+
+def get_student(request):
+    students = Student.objects.all()
+    # for student in students:
+    #     print(student.s_name)
+
+    context = {
+        "MyGame": "Play game" , 
+        "students" : students
+    }
+
+    return render(request, 'student_list.html' , context=context)
+
+## 根目錄 HelloJango/templates/student_list.html
+<h1>Ubuntu</h1>
+<h2>{{MyGame}}</h2>
+<ul>
+    {% for student in students %}
+        <li>{{ student.s_name}}</li>
+    {% endfor %}
+</ul>
+
+## 執行 python manage.py runserver
+
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
