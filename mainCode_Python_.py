@@ -68,14 +68,19 @@ MyCodeName = sys.argv[2]
 
 
 ### -------------------------------------------------------------------
-# MyCodeTitle  = "RyanCode Python ( 範例1 )"
-# MyCodeString = '''
-# ###  Python 範例程式 ####
-# ### file: mainCode_Python_
-#  -*-  coding:utf-8  -*-
-# xxxxxxxxxxxxxxxxxxxxxxxxxxx
-# '''
-# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+MyCodeTitle  = "RyanCode Python ( vc++ proxy )"
+MyCodeString = '''
+###  Python vc++ proxy ####
+### file: mainCode_Python_
+ -*-  coding:utf-8  -*-
+set PATH=%PATH%;D:\Python\Python37\;D:\Python\Python37\Scripts\;C:\Program Files (x86)\Microsoft Visual Studio\2017\WDExpress\VC\Tools\MSVC\14.16.27023\bin\Hostx86\x64\;C:\Windows\Microsoft.NET\Framework\v2.0.50727\
+C:\Program Files (x86)\Microsoft Visual Studio\2017\WDExpress\VC\Auxiliary\Build\vcvarsall.bat
+set CL=-FI"C:\Program Files (x86)\Microsoft Visual Studio\2017\WDExpress\VC\Tools\MSVC\14.16.27023\include\stdint.h"
+
+pip install pycrypto --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org --proxy http://xxxx:xxxxx@xx.xx.xx.xx:80 
+
+'''
+runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 
