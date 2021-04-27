@@ -68,17 +68,19 @@ MyCodeName = sys.argv[2]
 
 
 ### -------------------------------------------------------------------
-MyCodeTitle  = "RyanCode Python ( vc++ proxy )"
+MyCodeTitle  = "RyanCode Python ( visual studio c++ )"
 MyCodeString = '''
 ###  Python vc++ proxy ####
 ### file: mainCode_Python_
  -*-  coding:utf-8  -*-
+1) 安裝 Microsoft Visual Studio 2017 Express Desktop
+2) 找到 link.exe & lc.exe & Framework 2.0 & stdint.h 位置
+3) 設定環境變數如下 
+
 set PATH=%PATH%;D:\Python\Python37\;D:\Python\Python37\Scripts\;C:\Program Files (x86)\Microsoft Visual Studio\2017\WDExpress\VC\Tools\MSVC\14.16.27023\bin\Hostx86\x64\;C:\Windows\Microsoft.NET\Framework\v2.0.50727\
-C:\Program Files (x86)\Microsoft Visual Studio\2017\WDExpress\VC\Auxiliary\Build\vcvarsall.bat
 set CL=-FI"C:\Program Files (x86)\Microsoft Visual Studio\2017\WDExpress\VC\Tools\MSVC\14.16.27023\include\stdint.h"
 
-pip install pycrypto --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org --proxy http://xxxx:xxxxx@xx.xx.xx.xx:80 
-
+C:\Program Files (x86)\Microsoft Visual Studio\2017\WDExpress\VC\Auxiliary\Build\vcvarsall.bat
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
@@ -162,7 +164,7 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 ### -------------------------------------------------------------------
-MyCodeTitle  = "RyanCode Python ( 執行外部命令 )"
+MyCodeTitle  = "RyanCode Python ( os.popen 執行外部命令 )"
 MyCodeString = '''
 ###  Python 執行外部命令 ####
 # ### file: mainCode_Python_
@@ -446,79 +448,6 @@ for key,values in  dict.items():
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
-## -------------------------------------------------------------------
-MyCodeTitle  = "RyanCode Python ( pip proxy )"
-MyCodeString = '''
-###  Python pip proxy ####
-# ### file: mainCode_Python_
-
- -*-  coding:utf-8  -*-
-
-Easiest method, also works on many OS's:
-
-pip install pysocks
-pip install <yourpacakge> --proxy socks5:127.0.0.1:8123
-
-##########################################################
-
-For CentOS, you can use privoxy to convert socks5 proxy to http proxy.
-
-yum install privoxy
-
-Then edit /etc/privoxy/config, at the end of the file, add:
-
-forward-socks5 / 127.0.0.1:1080 .
-
-It will convert socks5 proxy from 1080 to http proxy 8118. Then you can specify the proxy in your pip config file:
-
-[global]
-proxy = 127.0.0.1:8118
-
-###########################################################
-
-Nevermind, --proxy seems to work with http(s) proxy only.
-
-From "pip --help"
-
---proxy <proxy>             Specify a proxy in the form
-                          [user:passwd@]proxy.server:port.
-
-###########################################################
-
-first of all you can try install proxychains-ng using
-
-    brew install proxychains-ng
-
-the can try make a socks5 proxy using ssh -D like
-
-    ssh -D 12345 -fqN root@[your-vps-ip]
-
-and use public-key or password to access your vps
-
-then you have both proxychain and socks5.
-
-Now edit /etc/proxychains.conf , simply add this line at the end of it
-
-socks5  127.0.0.1 12345
-
-and comment this
-
-socks4  127.0.0.1 9050
-
-Finally
-
-    proxychains4 pip install [whateveryouwant]
-
-###########################################################
-
-Run these two commands:
-
-pip install pysocks5
-pip install --proxy socks5://[user:passwd@]proxy.server:port something
-
-###########################################################
-'''
-runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 ## -------------------------------------------------------------------
@@ -786,7 +715,7 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 ## -------------------------------------------------------------------
-MyCodeTitle  = "RyanCode Python ( pip 模組 offline 下載 )"
+MyCodeTitle  = "RyanCode Python ( pip offline proxy 下載 )"
 MyCodeString = '''
 ###  Python pip 模組離線下載 ####
 # ### file: mainCode_Python_
@@ -798,7 +727,10 @@ python3 -m pip install --upgrade pip
 ## proxy 
 vi /etc/apt/apt.conf
 Acquire::http::Proxy "http://xx.xx.xx.xx:8080";
-pip3 install tensorflow keras --proxy http://xx.xx.xx.xx:8080
+
+pip install tensorflow keras --proxy http://xx.xx.xx.xx:8080
+pip install pycrypto --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org --proxy http://xxxx:xxxxx@xx.xx.xx.xx:80 
+
 
 ## offline download
 sudo python3 -m pip download  requests beautifulsoup4 pandas numpy

@@ -47,6 +47,17 @@ https://www.youtube.com/watch?v=xvtzu16n6lU&list=PLwDQt7s1o9J55UmZFIk6w16k3Kz0ke
 這是 GitHub  上的一個新項目，簡介如是說：史上最全的 PyTorch  學習資源匯總。
 https://github.com/INTERMT/Awesome-PyTorch-Chinese
 
+
+書本: 強者用Pytorch
+https://github.com/swarmapytorch
+
+
+Tibame 丘祐瑋
+https://github.com/ywchiu
+
+Tibame 尹相志
+https://github.com/AllanYiin
+
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
