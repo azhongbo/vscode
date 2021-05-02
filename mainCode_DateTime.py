@@ -23,11 +23,48 @@ count      = 0
 MyCodeName = sys.argv[2]
 
 
+# ### -------------------------------------------------------------------
+# MyCodeTitle  = "RyanCode DateTime ( 範例 )"
+# MyCodeString = '''
+# ###  C# 範例 範例程式 ####
+# ### 檔案: mainCode_DateTime
+# xxxxxxxxxxxxxxxxxxxxxxxxxxx
+# '''
+# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+
+# ### -------------------------------------------------------------------
+# MyCodeTitle  = "RyanCode DateTime ( 範例 )"
+# MyCodeString = '''
+# ###  C# 範例 範例程式 ####
+# ### 檔案: mainCode_DateTime
+# xxxxxxxxxxxxxxxxxxxxxxxxxxx
+# '''
+# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+
+# ### -------------------------------------------------------------------
+# MyCodeTitle  = "RyanCode DateTime ( 範例 )"
+# MyCodeString = '''
+# ###  C# 範例 範例程式 ####
+# ### 檔案: mainCode_DateTime
+# xxxxxxxxxxxxxxxxxxxxxxxxxxx
+# '''
+# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+
+
+
 
 ### -------------------------------------------------------------------
 MyCodeTitle  = "RyanCode DateTime ( PHP 範例 )"
 MyCodeString = '''
 ## php 時間日期
+### 檔案: mainCode_DateTime
+
 $date = date("Y-m-d H:i:s", time() - ( 0 * 24 * 60 * 60 ) );
 
 ## php 兩個日期相減
@@ -41,7 +78,9 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 MyCodeTitle  = "RyanCode DateTime ( Perl 範例 )"
 MyCodeString = '''
 ## Perl 時間日期
-myTime = time() - 0 * 24 * 3600;
+### 檔案: mainCode_DateTime
+
+$myTime = time() - 0 * 24 * 3600;
 ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($myTime);
 $mon+=1;
 $year=$year + 1900;
@@ -86,7 +125,9 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 MyCodeTitle  = "RyanCode DateTime ( Python 範例 )"
 MyCodeString = '''
 ## Python 時間日期
-$myTime = time.strftime('%Y%m%d %H%M%S %w %j %U',time.localtime(time.time() + i * 24 * 60 * 60 ) )
+### 檔案: mainCode_DateTime
+
+myTime = time.strftime('%Y%m%d %H%M%S %w %j %U',time.localtime(time.time() + i * 24 * 60 * 60 ) )
 year = myTime[0:4] ## %Y 四位數的年份表示（000-9999）
 mon  = myTime[4:6] ## %m 月份（01-12）
 mday = myTime[6:8] ## %d 月内中的一天（0-31）
@@ -144,13 +185,14 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 ### -------------------------------------------------------------------
 MyCodeTitle  = "RyanCode DateTime ( C# 範例 )"
 MyCodeString = '''
-###  C# 時間日企 ####
+###  C# 時間日期 ####
+### 檔案: mainCode_DateTime
+
 DateTime dt1 = DateTime.Now;
 DateTime dt2 = DateTime.Now.AddMinutes(30);
             
 string cc = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
 string dd = DateTime.Now.AddMinutes(5).ToString("yyyy-MM-dd hh:mm:ss");
-xxxxxxxxxxxxxxxxxxxxxxxxxxx
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
@@ -158,25 +200,7 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 
-# ### -------------------------------------------------------------------
-# MyCodeTitle  = "RyanCode DateTime ( 範例 )"
-# MyCodeString = '''
-# ###  JavaScript 範例程式 ####
-# xxxxxxxxxxxxxxxxxxxxxxxxxxx
-# '''
-# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
-
-
-
-
-# ### -------------------------------------------------------------------
-# MyCodeTitle  = "RyanCode DateTime ( 範例 )"
-# MyCodeString = '''
-# ###  JavaScript 範例程式 ####
-# xxxxxxxxxxxxxxxxxxxxxxxxxxx
-# '''
-# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 

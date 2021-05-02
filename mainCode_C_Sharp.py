@@ -58,14 +58,76 @@ MyCodeName = sys.argv[2]
 # '''
 # runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
-# ### -------------------------------------------------------------------
-# MyCodeTitle  = "RyanCode C# ( 範例 )"
-# MyCodeString = '''
-# ###  C# 範例程式 ####
-# ### file: mainCode_C_Sharp ###
-# xxxxxxxxxxxxxxxxxxxxxxxxxxx
-# '''
-# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+### -------------------------------------------------------------------
+MyCodeTitle  = "RyanCode C# ( 類別 )"
+MyCodeString = '''
+###  C# 類別 ####
+### file: mainCode_C_Sharp ###
+
+### Student.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace test3
+{
+    class Student
+    {
+        public string StuNo;
+        public string StuName;
+        public int Age;
+        public string ClassName;
+    }
+}
+
+### Program.cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace test3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Student[] students = new Student[30];
+
+            Student stu1 = new Student();
+            stu1.Age = 14;
+            stu1.StuName = "張三";
+            stu1.ClassName = "1年級";
+            stu1.StuNo = "S1001";
+
+            Student stu2 = new Student();
+            stu2.Age = 15;
+            stu2.StuName = "李四";
+            stu2.ClassName = "2年級";
+            stu2.StuNo = "S2001";
+
+            students[0] = stu1;
+            students[1] = stu2;
+
+            for (int i =0; i< students.Length; i++)
+            {
+                Student stu = students[i];
+                if ( stu != null)
+                {
+                    Console.WriteLine(stu.StuName);
+                    Console.WriteLine(stu.Age);
+                }
+            }
+            Console.Read();
+        }
+    }
+}
+
+'''
+runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 

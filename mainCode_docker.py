@@ -28,6 +28,8 @@ MyCodeName = sys.argv[2]
 MyCodeTitle  = "RyanCode Docker ( download command 命令 )"
 MyCodeString = '''
 ###  Docker command 命令 ####
+### 檔案: Dockerfile
+
 docker pull tomcat:jre-9  ## 下載 tomcat
 docker pull ubuntu  ## 下載 ubuntu
 docker images ## 列出 images 
@@ -45,8 +47,8 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 MyCodeTitle  = "RyanCode Docker ( Dockfile Ubuntu PHP 7.4 )"
 MyCodeString = '''
 ###  Docker Ubuntu PHP 7.4 ####
-
 ### 檔案: Dockerfile
+
 FROM ubuntu
 COPY startHttp /bin
 RUN chmod 755 /bin/startHttp
@@ -93,6 +95,8 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 MyCodeTitle  = "RyanCode Docker ( save load images 匯出匯入 )"
 MyCodeString = '''
 ###  Docker save load images 匯出匯入 ####
+### 檔案: Dockerfile
+
 docker save -o <path for generated tar file> <image name>
 docker load -i <path to image tar file>
 '''
@@ -105,6 +109,7 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 # MyCodeTitle  = "RyanCode Docker ( 範例 )"
 # MyCodeString = '''
 # ###  Docker 範例程式 ####
+### 檔案: Dockerfile
 # xxxxxxxxxxxxxxxxxxxxxxxxxxx
 # '''
 # runAllData(MyCodeTitle,MyCodeString,MyCodeName)
@@ -116,6 +121,7 @@ runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 # MyCodeTitle  = "RyanCode Docker ( 範例 )"
 # MyCodeString = '''
 # ###  Docker 範例程式 ####
+### 檔案: Dockerfile
 # xxxxxxxxxxxxxxxxxxxxxxxxxxx
 # '''
 # runAllData(MyCodeTitle,MyCodeString,MyCodeName)
