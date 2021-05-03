@@ -70,11 +70,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace test3
 {
     class Student
     {
+        public Student() { }
+        public Student(string StuNo, string StuName, int Age, string ClassName)
+        {
+            this.StuNo     = StuNo;
+            this.StuName   = StuName;
+            this.Age       = Age;
+            this.ClassName = ClassName;
+        }
+
         public string StuNo;
         public string StuName;
         public int Age;
@@ -95,6 +105,8 @@ namespace test3
     {
         static void Main(string[] args)
         {
+
+            // 方法一
             Student[] students = new Student[30];
 
             Student stu1 = new Student();
@@ -109,8 +121,13 @@ namespace test3
             stu2.ClassName = "2年級";
             stu2.StuNo = "S2001";
 
+            Student stu3 = new Student("S2002", "王五", 20, "2年級");
+            Student stu4 = new Student("S2002", "李六", 18, "2年級");
+
             students[0] = stu1;
             students[1] = stu2;
+            students[2] = stu3;
+            students[3] = stu4;            
 
             for (int i =0; i< students.Length; i++)
             {
@@ -121,6 +138,49 @@ namespace test3
                     Console.WriteLine(stu.Age);
                 }
             }
+
+            // 方法二
+            //ArrayList arraylist = new ArrayList() { stu1, stu2, stu3 }
+            ArrayList arraylist = new ArrayList();
+            arraylist.Add(stu1);
+            arraylist.Add(stu2);
+            arraylist.Add(stu2);
+            
+            for (int i =0; i< arraylist.Count; i++)
+            {
+                Student stu = (Student)arraylist[i];
+                Console.WriteLine(stu.StuName);
+                Console.WriteLine(stu.Age);
+            }
+
+
+            // 方法三
+            Hashtable ht = new Hashtable();
+            //ht.Add(key, value);
+            ht.Add("stu1", stu1);
+            ht.Add("stu2", stu2);
+            ht.Add("stu3", stu3);
+            
+            //修改內容
+            Student stu_ = (Student)ht["stu2"];
+            stu_.StuName = "李四四";            
+
+            foreach( Student stu in ht.Values)
+            {
+                Console.WriteLine(stu.StuName);
+                Console.WriteLine(stu.Age);
+            }
+
+            foreach (object obj in ht.Values)
+            {
+                Student stu = (Student)obj;
+                Console.WriteLine(stu.StuName);
+                Console.WriteLine(stu.Age);
+            }
+
+
+
+
             Console.Read();
         }
     }
