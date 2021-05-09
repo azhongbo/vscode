@@ -55,8 +55,13 @@ https://github.com/swarmapytorch
 Tibame 丘祐瑋
 https://github.com/ywchiu
 
+
 Tibame 尹相志
 https://github.com/AllanYiin
+
+
+Django 基本教學
+https://github.com/twtrubiks/django-tutorial
 
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
