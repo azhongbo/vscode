@@ -25,6 +25,51 @@ MyCodeName = sys.argv[2]
 
 
 
+# ### -------------------------------------------------------------------
+# MyCodeTitle  = "RyanCode PHP ( 範例 )"
+# MyCodeString = '''
+# ###  PHP 範例程式 ####
+# xxxxxxxxxxxxxxxxxxxxxxxxxxx
+# '''
+# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+
+# ### -------------------------------------------------------------------
+# MyCodeTitle  = "RyanCode PHP ( 範例 )"
+# MyCodeString = '''
+# ###  PHP 範例程式 ####
+# xxxxxxxxxxxxxxxxxxxxxxxxxxx
+# '''
+# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+
+### -------------------------------------------------------------------
+MyCodeTitle  = "RyanCode PHP ( multi level associative array )"
+MyCodeString = '''
+###  PHP multi level associative array ####
+$languages = array();
+  
+$languages['Python'] = array(
+    "first_release" => "1991", 
+    "latest_release" => "3.8.0", 
+    "designed_by" => "Guido van Rossum",
+    "description" => array(
+        "extension" => ".py", 
+        "typing_discipline" => "Duck, dynamic, gradual",
+        "license" => "Python Software Foundation License"
+    )
+);
+  
+print_r($languages['Python']['description']);
+echo $languages['Python']['latest_release'];
+'''
+runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+
+
 
 ### -------------------------------------------------------------------
 MyCodeTitle  = "RyanCode PHP ( 執行外部命令 )"
@@ -168,34 +213,6 @@ if(strpos(  '今天天氣好' , '天氣' ) !== false )
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
-
-# ### -------------------------------------------------------------------
-# MyCodeTitle  = "RyanCode PHP ( 範例 )"
-# MyCodeString = '''
-# ###  PHP 範例程式 ####
-# xxxxxxxxxxxxxxxxxxxxxxxxxxx
-# '''
-# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
-
-
-
-# ### -------------------------------------------------------------------
-# MyCodeTitle  = "RyanCode PHP ( 範例 )"
-# MyCodeString = '''
-# ###  PHP 範例程式 ####
-# xxxxxxxxxxxxxxxxxxxxxxxxxxx
-# '''
-# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
-
-
-
-# ### -------------------------------------------------------------------
-# MyCodeTitle  = "RyanCode PHP ( 範例 )"
-# MyCodeString = '''
-# ###  PHP 範例程式 ####
-# xxxxxxxxxxxxxxxxxxxxxxxxxxx
-# '''
-# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
 
