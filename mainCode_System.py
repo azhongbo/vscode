@@ -957,12 +957,24 @@ http_access allow all
 acl localnet src 192.168.0.0/16
 
 
-## git
+## git ##
 git config --global http.proxy http://192.168.0.1:8080
 
-## apt
+## apt ##
 vi /etc/apt/apt.conf
 Acquire::http::Proxy "http://192.168.0.1:8080";
+
+## docker ##
+mkdir -p /etc/systemd/system/docker.service.d
+vi /etc/systemd/system/docker.service.d/proxy.conf
+[Service]
+Environment="HTTP_PROXY=http://192.168.0.1:8080"
+Environment="HTTPS_PROXY=http://192.168.0.1:8080"
+
+#重起服務
+systemctl daemon-reload
+systemctl restart docker
+
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
