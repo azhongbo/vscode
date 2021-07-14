@@ -957,19 +957,26 @@ http_access allow all
 acl localnet src 192.168.0.0/16
 
 
-## git ##
-git config --global http.proxy http://192.168.0.1:8080
 
-## apt ##
+## nuget behind proxy ##
+nuget.exe config -set http_proxy=http://my.proxy.address:port
+
+## vscode extension behind proxy ##
+code --proxy-server=http://myproxy.example.com:3128
+
+## git  behind proxy ##
+git config --global http.proxy http://my.proxy.address:8080
+
+## apt  behind proxy ##
 vi /etc/apt/apt.conf
-Acquire::http::Proxy "http://192.168.0.1:8080";
+Acquire::http::Proxy "http://my.proxy.address:8080";
 
-## docker ##
+## docker  behind proxy ##
 mkdir -p /etc/systemd/system/docker.service.d
 vi /etc/systemd/system/docker.service.d/proxy.conf
 [Service]
-Environment="HTTP_PROXY=http://192.168.0.1:8080"
-Environment="HTTPS_PROXY=http://192.168.0.1:8080"
+Environment="HTTP_PROXY=http://my.proxy.address:8080"
+Environment="HTTPS_PROXY=http://my.proxy.address:8080"
 
 #重起服務
 systemctl daemon-reload
