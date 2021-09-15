@@ -63,6 +63,8 @@ https://github.com/AllanYiin
 Django 基本教學
 https://github.com/twtrubiks/django-tutorial
 
+
+
 '''
 runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
