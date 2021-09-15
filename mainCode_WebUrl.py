@@ -60,7 +60,7 @@ Tibame 尹相志
 https://github.com/AllanYiin
 
 
-Django 基本教學 test
+Django 基本教學
 https://github.com/twtrubiks/django-tutorial
 
 '''
