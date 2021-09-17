@@ -44,14 +44,70 @@ MyCodeName = sys.argv[2]
 # runAllData(MyCodeTitle,MyCodeString,MyCodeName)
 
 
-# ### -------------------------------------------------------------------
-# MyCodeTitle  = "RyanCode System ( 範例 )"
-# MyCodeString = '''
-# ###  System 範例程式 ####
-# ### file: mainCode_System
-# xxxxxxxxxxxxxxxxxxxxxxxxxxx
-# '''
-# runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+### -------------------------------------------------------------------
+MyCodeTitle  = "RyanCode System ( Ubuntu Jitsi Server )"
+MyCodeString = '''
+###  System 範例程式 ####
+### file: mainCode_System
+
+# 參考網址： https://www.vultr.com/docs/how-to-install-jitsi-meet-on-ubuntu-18-04-lts
+
+# 設定電腦名稱
+sudo hostnamectl set-hostname MyHostName
+sudo sed -i 's/^127.0.1.1.*$/127.0.1.1 MyHostName.abc.com MyHostName/g' /etc/hosts
+
+# 開啟防火牆
+sudo ufw allow OpenSSH
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw allow in 10000:20000/udp
+sudo ufw allow samba
+sudo ufw enable
+
+# 安裝相關套件
+sudo apt update
+sudo apt upgrade -y && sudo shutdown -r now
+
+sudo apt install -y gnupg
+sudo apt install -y openjdk-8-jre-headless
+
+echo "JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")" | sudo tee -a /etc/profile
+source /etc/profile
+
+sudo apt install -y nginx
+sudo systemctl start nginx.service
+sudo systemctl enable nginx.service
+
+https_proxy=http://xx.xx.xx.xx:8000 wget -qO - https://download.jitsi.org/jitsi-key.gpg.key | sudo apt-key add -
+sudo sh -c "echo 'deb https://download.jitsi.org stable/' > /etc/apt/sources.list.d/jitsi-stable.list"
+sudo apt update -y
+
+
+# 安裝 Jitsi Server (最新版本)
+sudo apt-get install  jitsi-meet
+
+# 安裝 Jitsi Server (2.0.51 版本)
+sudo apt-get install jitsi-meet=2.0.5142-1 jitsi-videobridge2=2.1-376-g9f12bfe2-1  jicofo=1.0-644-1 jitsi-meet-web=1.0.4466-1 jitsi-meet-web-config=1.0.4466-1 jitsi-meet-prosody=1.0.4466-1 jitsi-meet-turnserver=1.0.4466-1
+
+# 出現下列訊息，輸入網址 MyHostName.abc.com
+# The value for the hostname that is set in Jitsi Videobridge installation.  │ 
+# The hostname of the current installation:  
+
+# 執行 cert 輸入管理者 Email
+sudo /usr/share/jitsi-meet/scripts/install-letsencrypt-cert.sh
+## keyin admin@abc.com
+
+
+# 臨時加入憑證方式
+# 檔案位置 /etc/jitsi/meet/xxx.crt
+# Windows 使用管理者權限執行 certutil.exe -addstore root xxx.crt
+
+'''
+runAllData(MyCodeTitle,MyCodeString,MyCodeName)
+
+
+
+
 
 
 ### -------------------------------------------------------------------
