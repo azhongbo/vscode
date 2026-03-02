@@ -1,0 +1,35 @@
+Continue 自動補全核心工作流
+說明1. 觸發與過濾 (Triggering & Filtering)
+並非每一次按鍵都會請求 AI，否則會造成編輯器卡頓。
+Debouncing（防抖）：等待使用者停止打字一段時間（通常為 50ms - 200ms）。
+上下文判斷：檢查游標位置。如果在註解中、字串中間或已經有合適的語法提示，則跳過觸發。
+
+說明2. 上下文構造 (Context Construction)
+這是最核心的步驟，Continue 會利用 FIM (Fill-In-the-Middle) 模板來組合 Prompt：
+Prefix：游標之前的程式碼內容（包含當前文件及相關引用的文件）。
+Suffix：游標之後的程式碼內容。
+RAG (檢索增強)：從本地索引中尋找相似的程式碼片段（例如：你在寫 UserAuth，它會去抓取 UserSchema 的定義）並加入 Prefix。
+
+Prompt 結構範例：
+<FIM_PREFIX> {前文與相關片段} <FIM_SUFFIX> {後文} <FIM_MIDDLE>
+
+說明3. 請求發送 (Inference Request)
+根據配置，Continue 將 Prompt 發送至推理引擎：
+本地引擎：如 Ollama, llama.cpp 或 Apple MLX（通常使用 1B - 7B 的模型，如 StarCoder2-3B）。
+遠端 API：如 Fireworks, Together AI 或 Groq（追求極速推理）。
+
+說明4. 後處理與清理 (Post-processing)
+模型生成的原始文字通常需要「打磨」才能放入編輯器：
+截斷 (Truncation)：如果模型生成過多（例如把整個檔案都重寫了），只截取到下一個邏輯點（如第一個 ; 或 }）。
+重複刪除：檢查生成的內容是否與 Suffix（後文）重複。
+括號配對：修正生成內容中可能缺失或多餘的閉合括號。
+
+5. 渲染與互動 (Rendering & Interaction)
+Ghost Text (幽靈文字)：以灰色斜體顯示在編輯器中。
+Accept/Reject：
+Tab：接受全部。
+Cmd/Ctrl + Right：逐詞接受。
+繼續打字：自動更新或失效。
+
+
+請將 說明1 說明2 說明3 說明4 寫一個小型的代碼自動補全, 請使用 javascript , 將用於 vscode extension
